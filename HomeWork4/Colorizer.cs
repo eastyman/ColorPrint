@@ -10,9 +10,7 @@ namespace HomeWork4
     {
         public static void ColorPrint(object obj)
         {
-            Type t = obj.GetType();
-            object o = Activator.CreateInstance(t);
-            o = obj;
+            Type t = obj.GetType();            
             ConsoleColor color;
             foreach (PropertyInfo p in t.GetProperties())
             {
@@ -33,7 +31,7 @@ namespace HomeWork4
                     color = ConsoleColor.White;                    
                 }
                 Console.ForegroundColor = color;
-                Console.WriteLine(p.GetValue(o));
+                Console.WriteLine(p.GetValue(obj));
                 Console.ForegroundColor = ConsoleColor.White;
             }
         }
