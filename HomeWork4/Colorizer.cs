@@ -10,31 +10,33 @@ namespace HomeWork4
     {
         public static void ColorPrint(object obj)
         {
-            Type t = obj.GetType();            
+            Type type = obj.GetType();
             ConsoleColor color;
             const ConsoleColor stdColor = ConsoleColor.Gray; //стандарный цвет для консольки
-            foreach (PropertyInfo p in t.GetProperties())
+            System.Attribute colorAttr;
+            foreach (PropertyInfo property in type.GetProperties())
             {
-                // Пытаемся получить значение атрибута
-                try
+                // Получим значение атрибута
+                colorAttr = property.GetCustomAttribute(typeof(ColorInfoAttribute));
+                //если не пусто - вытащим значение свойства Color из аттрибута
+                if (colorAttr != null)
                 {
-                    color = ((ColorInfoAttribute)p.GetCustomAttribute(typeof(ColorInfoAttribute))).Color;
-                    //Если атрибут назначен, но цвет не указан, по-умолчанию ставится черный
-                    //меняем его на стандартный серый чтобы видеть текст
+                    color = ((ColorInfoAttribute)colorAttr).Color;
+                    //если в результате получили черный - сменим его на стандартный
                     if (color == ConsoleColor.Black)
                     {
                         color = stdColor;
                     }
-
                 }
-                // если атрибут не назначен - устанавливаем стандартный серый
-                catch (Exception) 
+                //если пусто - запишем стандартный цвет
+                else
                 {
-                    color = stdColor;                    
+                    color = stdColor;
                 }
+
                 Console.ForegroundColor = color;
-                Console.WriteLine(p.Name+": "+p.GetValue(obj));
-                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine(property.Name + ": " + property.GetValue(obj));
+                Console.ForegroundColor = stdColor;
             }
         }
     }
