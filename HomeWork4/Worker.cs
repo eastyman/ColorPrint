@@ -11,5 +11,7 @@ namespace HomeWork4
         public string Name { get; set; }
         [ColorInfo(ConsoleColor.DarkYellow)]
         public string Company { get; set; }
+        [ColorInfo()]
+        public int Age { get; set; }
     }
 }

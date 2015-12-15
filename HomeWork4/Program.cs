@@ -13,10 +13,14 @@ namespace HomeWork4
             Device device = new Device();
             device.Name = "TVSet";
             device.Mode = "Working";
+            device.Manufacturer = "Sony";
+            Console.WriteLine("\tDevice:");
             Colorizer.ColorPrint(device);
             Worker worker = new Worker();
             worker.Name = "Vasiliy Petrovich";
             worker.Company = "HTZ";
+            worker.Age = 45;
+            Console.WriteLine("\tWorker:");
             Colorizer.ColorPrint(worker);
         }
     }
